@@ -14,7 +14,14 @@ const testDuffel = async () => {
 
 }
 
-testDuffel()
+
+app.get('/api/test', async (req, res) => {
+  res.json({
+    message: 'success'
+  })
+})
+
+// testDuffel()
 
 app.listen(port, () => {
     console.log('Server running');
