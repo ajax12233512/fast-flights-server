@@ -1,22 +1,39 @@
 import 'dotenv/config';
 import express, { application } from 'express';
+import path from 'path';
+import {fileURLToPath} from 'url';
 const app = express();
 const port = process.env.PORT || 3001;
 import { duffel } from './duffel/duffel.js'
 import { search } from './AirportSearch/api.js';
 
-const testDuffel = async () => {
-  try{
-    const airports = await duffel.airports.listWithGenerator();
-    for await (const airport of airports) 
-      console.log(airport)  
-  } catch (err) {
-    console.log(err)
-  }
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-}
+// const testDuffel = async () => {
+//   try{
+//     const airports = await duffel.airports.listWithGenerator();
+//     for await (const airport of airports) 
+//       console.log(airport)  
+//   } catch (err) {
+//     console.log(err)
+//   }
+
+// }
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, '..', 'build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+  });
+}
 
 app.post('/api/search', async (req, res) => {
   const data = await search(req.body.input);
