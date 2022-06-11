@@ -40,6 +40,10 @@ app.post('/api/search', async (req, res) => {
   res.status(200).send(data);
 })
 
+app.post('/api/duffel/search', async (req, res) => {
+  console.log(req.body)
+})
+
 app.post('/api/duffel', async (req, res) => {
   const newArray = [];
   try{
@@ -54,7 +58,11 @@ app.post('/api/duffel', async (req, res) => {
     //     if(airport.city_name.includes(req.body.input))
     //       return airport;
     //   })
-    
+    // duffel.offerRequests.create({
+    //   slices: [
+
+    //   ]
+    // })
     res.json(newArray);
   } catch (err) {
     console.log(err)
