@@ -1,3 +1,6 @@
+import { createRequire } from 'module';//Allow ability to require files in ES6
+const require = createRequire(import.meta.url);
+const aiports = require('./data/airports.json');
 import 'dotenv/config';
 import express, { application } from 'express';
 import path from 'path';
@@ -5,7 +8,8 @@ import {fileURLToPath} from 'url';
 const app = express();
 const port = process.env.PORT || 3001;
 import { duffel } from './duffel/duffel.js'
-import { search } from './AirportSearch/api.js';
+import { search } from './utils/search.js';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,10 +39,7 @@ if(process.env.NODE_ENV === 'production') {
   });
 }
 
-app.post('/api/search', async (req, res) => {
-  const data = await search(req.body.input);
-  res.status(200).send(data);
-})
+app.post('/api/search', search)
 
 app.post('/api/duffel/search', async (req, res) => {
   console.log(req.body)
