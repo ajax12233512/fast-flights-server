@@ -1,8 +1,7 @@
 import { createRequire } from 'module';//Allow ability to require files in ES6
 const require = createRequire(import.meta.url);
-const aiports = require('./data/airports.json');
 import 'dotenv/config';
-import express, { application } from 'express';
+import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
 const app = express();
@@ -43,6 +42,7 @@ app.post('/api/search', search)
 
 app.post('/api/duffel/search', async (req, res) => {
   console.log(req.body)
+  res.json(req.body)
 })
 
 app.post('/api/duffel', async (req, res) => {
