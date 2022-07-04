@@ -9,7 +9,6 @@ let sendData = [];
   const data = req.body.input
   const airportArray = Object.values(aiports);
   let counter = 0;
-  console.log('here')
   airportArray.forEach(airport => {
     if(airport.city.toLowerCase().includes(data.toLowerCase()) || airport.name.toLowerCase().includes(data.toLowerCase())) {
       sendData.push(airport);
@@ -27,6 +26,5 @@ let sendData = [];
     }
   })
 
-  console.log(sendData.slice(0, 10))
   res.status(200).json({data: sendData.slice(0, 10)});
 }
