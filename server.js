@@ -28,7 +28,7 @@ app.post('/api/search', search)
 //create Offer request handler
 app.post('/api/duffel/search', createOfferRequest)
 
-app.post('api/duffel/getSearch', getOfferRequest)
+app.post('/api/duffel/getSearch', getOfferRequest)
 
 //Check for enviornment variable
 if(process.env.NODE_ENV === 'production') {
